@@ -13,6 +13,7 @@ const concepts = [
     thesis:
       "Restrained elegance. Large photography, premium monochrome palette, refined typography, and intentional negative space.",
     image: "/images/sketch-house-1.png",
+    objectPos: "center",
   },
   {
     id: 2,
@@ -21,6 +22,7 @@ const concepts = [
     thesis:
       "The brand fills the viewport. Cinzel serif at 18vw, full-bleed slides, clip-path reveals. Architecture as monument.",
     image: "/images/sketch-architect.png",
+    objectPos: "center",
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ const concepts = [
     thesis:
       "Depth, light, and materiality. Organic forms that evoke architecture as spatial experience. The boldest direction.",
     image: "/images/sketch-table.png",
+    objectPos: "70% center",
   },
 ];
 
@@ -147,7 +150,8 @@ export default function HomePage() {
                     src={c.image}
                     alt={c.title}
                     fill
-                    className="object-cover invert opacity-80 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="invert opacity-80 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    style={{ objectFit: "cover", objectPosition: c.objectPos }}
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/20 to-transparent" />
