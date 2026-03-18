@@ -51,28 +51,6 @@ export default function Concept02() {
       start: "top 88%",
     });
 
-    /* ── PROJECTS: Each card pins, next one scrolls over it ── */
-    gsap.utils.toArray<HTMLElement>(".proj-card").forEach((card, i, arr) => {
-      if (i < arr.length - 1) {
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top top",
-          pin: true,
-          pinSpacing: false,
-          endTrigger: arr[arr.length - 1],
-          end: "top top",
-        });
-      }
-      /* Image scale-in */
-      const img = card.querySelector(".proj-scale-img");
-      if (img) {
-        gsap.fromTo(img, { scale: 1.15 }, {
-          scale: 1, ease: "none",
-          scrollTrigger: { trigger: card, start: "top bottom", end: "top top", scrub: 1 },
-        });
-      }
-    });
-
     /* ── SERVICES: Each name reveals with a wipe ── */
     gsap.utils.toArray<HTMLElement>(".svc-name").forEach((el) => {
       gsap.fromTo(el,
@@ -308,75 +286,91 @@ export default function Concept02() {
         </div>
       </section>
 
-      {/* ━━━ PROJECTS — Full-viewport cinematic stacking ━━━ */}
-      <section id="projects">
-        {/* Section header */}
-        <div className="px-6 py-28 md:px-10 md:py-36">
-          <div className="c2-reveal mx-auto max-w-[1440px]">
+      {/* ━━━ PROJECTS — Bento grid with grain background ━━━ */}
+      <section id="projects" className="relative overflow-hidden px-6 py-28 md:px-10 md:py-36">
+        {/* Blurred grain background */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/[0.02] via-amber-900/[0.03] to-black/[0.02]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px 128px" }} />
+
+        <div className="relative mx-auto max-w-[1440px]">
+          <div className="c2-reveal mb-16 md:mb-20">
             <p className="font-body text-xs tracking-[0.3em] uppercase opacity-40">Selected work</p>
             <h2 className="mt-4 font-display text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-wider uppercase">
               Projects
             </h2>
           </div>
-        </div>
 
-        {/* Project cards — each fills viewport, pins while next scrolls over */}
-        <div>
-          {projects.map((project, i) => (
-            <div
-              key={project.id}
-              className="proj-card relative will-change-transform"
-              style={{ zIndex: i + 1 }}
-            >
-              <div className={`relative h-screen overflow-hidden ${i > 0 ? "shadow-[0_-30px_80px_rgba(0,0,0,0.4)]" : ""}`}>
-                {/* Full-bleed image */}
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="proj-scale-img object-cover"
-                  sizes="100vw"
-                  quality={90}
-                />
-                {/* Gradient overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+          {/* Bento grid */}
+          <div className="grid auto-rows-[280px] gap-4 md:auto-rows-[320px] md:grid-cols-3 lg:auto-rows-[360px]">
+            {projects.map((project, i) => {
+              /* Layout pattern: 0=wide+tall, 1=text, 2=image, 3=image+tall, repeating */
+              const layouts = [
+                "md:col-span-2 md:row-span-2", /* big feature */
+                "md:col-span-1 md:row-span-1", /* text card */
+                "md:col-span-1 md:row-span-1", /* image */
+                "md:col-span-2 md:row-span-1", /* wide */
+              ];
+              const layout = layouts[i % layouts.length];
+              const isTextCard = i % 4 === 1;
 
-                {/* Content — bottom-left, monumental */}
-                <div className="absolute inset-0 flex items-end">
-                  <div className="w-full px-6 pb-14 md:px-10 md:pb-20">
-                    <div className="mx-auto max-w-[1440px]">
-                      <div className="flex items-end justify-between">
-                        <div>
-                          <p className="font-body text-xs tracking-[0.25em] text-white/40 uppercase md:text-sm">
-                            {String(i + 1).padStart(2, "0")} — {project.type}
-                          </p>
-                          <h3 className="mt-4 font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-wider text-white uppercase">
-                            {project.name}
-                          </h3>
-                          <p className="mt-3 font-body text-base italic text-white/50 md:text-lg">{project.tagline}</p>
-                          <p className="mt-5 max-w-lg font-body text-base leading-[1.8] text-white/35 md:text-lg">
-                            {project.description}
-                          </p>
-                        </div>
-                        <div className="hidden text-right md:block">
-                          <p className="font-body text-sm tracking-[0.15em] text-white/30 uppercase">{project.location}</p>
-                          <p className="mt-2 font-display text-4xl tracking-wider text-white/10">{project.year}</p>
-                        </div>
+              return (
+                <div
+                  key={project.id}
+                  className={`c2-reveal group relative overflow-hidden rounded-2xl border border-black/[0.06] dark:border-white/[0.06] ${layout}`}
+                >
+                  {isTextCard ? (
+                    /* Text-only card with frosted glass */
+                    <div className="flex h-full flex-col justify-end p-8 backdrop-blur-xl md:p-10" style={{ background: "linear-gradient(135deg, rgba(180,160,130,0.08), rgba(120,100,80,0.12))" }}>
+                      <p className="font-body text-[10px] tracking-[0.25em] uppercase opacity-40">
+                        {String(i + 1).padStart(2, "0")} — {project.type}
+                      </p>
+                      <h3 className="mt-3 font-display text-[clamp(1.8rem,3.5vw,3rem)] leading-[0.95] tracking-wider uppercase">
+                        {project.name}
+                      </h3>
+                      <p className="mt-4 max-w-md font-body text-sm leading-[1.8] opacity-40">
+                        {project.description}
+                      </p>
+                      <div className="mt-6 flex items-center gap-3">
+                        <span className="font-body text-xs tracking-wider uppercase opacity-30">{project.location}</span>
+                        <span className="opacity-20">&middot;</span>
+                        <span className="font-display text-sm tracking-wider opacity-20">{project.year}</span>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    /* Image card */
+                    <>
+                      <Image
+                        src={project.image}
+                        alt={project.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes={i % 4 === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+                        quality={85}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      <div className="absolute inset-0 flex items-end p-6 md:p-8">
+                        <div>
+                          <p className="font-body text-[10px] tracking-[0.25em] uppercase text-white/40">
+                            {String(i + 1).padStart(2, "0")} — {project.type}
+                          </p>
+                          <h3 className="mt-2 font-display text-[clamp(1.5rem,3vw,2.5rem)] leading-[0.95] tracking-wider text-white uppercase">
+                            {project.name}
+                          </h3>
+                          <p className="mt-2 font-body text-sm italic text-white/40">{project.tagline}</p>
+                        </div>
+                      </div>
+                      {/* Faint number */}
+                      <div className="pointer-events-none absolute top-4 right-5">
+                        <span className="font-display text-[clamp(2rem,5vw,4rem)] leading-none tracking-wider text-white/[0.06]">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
-
-                {/* Project number — large, faint, top-right */}
-                <div className="pointer-events-none absolute top-8 right-8 md:top-12 md:right-12">
-                  <span className="font-display text-[clamp(4rem,10vw,10rem)] leading-none tracking-wider text-white/[0.04]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </section>
 
