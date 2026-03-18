@@ -301,7 +301,7 @@ export default function Concept02() {
           </div>
 
           {/* Bento grid — matches reference: row1=[img, frosted text, img], row2=[wide img, frosted text] */}
-          <div className="grid gap-4 md:grid-cols-3 md:auto-rows-[340px] lg:auto-rows-[380px]">
+          <div className="grid gap-4 md:grid-cols-3 md:auto-rows-[minmax(340px,auto)] lg:auto-rows-[minmax(380px,auto)]">
 
             {/* Row 1 — image | frosted text | image */}
             <div className="c2-reveal group relative overflow-hidden rounded-3xl">
@@ -313,8 +313,8 @@ export default function Concept02() {
               </div>
             </div>
 
-            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-8 backdrop-blur-2xl dark:border-white/[0.08] md:p-10" style={{ background: "linear-gradient(145deg, rgba(200,185,165,0.1), rgba(160,145,125,0.15))" }}>
-              <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
+            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-5 backdrop-blur-2xl dark:border-white/[0.08] md:p-6 lg:p-10" style={{ background: "linear-gradient(145deg, rgba(200,185,165,0.1), rgba(160,145,125,0.15))" }}>
+              <h3 className="font-display text-[clamp(1.3rem,2.5vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
                 {projects[0].tagline}
               </h3>
               <p className="mt-4 font-body text-sm leading-[1.8] opacity-50">
@@ -347,8 +347,8 @@ export default function Concept02() {
               </div>
             </div>
 
-            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-8 backdrop-blur-2xl dark:border-white/[0.08] md:p-10" style={{ background: "linear-gradient(160deg, rgba(180,165,140,0.12), rgba(140,125,105,0.18))" }}>
-              <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
+            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-5 backdrop-blur-2xl dark:border-white/[0.08] md:p-6 lg:p-10" style={{ background: "linear-gradient(160deg, rgba(180,165,140,0.12), rgba(140,125,105,0.18))" }}>
+              <h3 className="font-display text-[clamp(1.3rem,2.5vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
                 {projects[3].name}
               </h3>
               <p className="mt-4 font-body text-sm leading-[1.8] opacity-50">
@@ -362,8 +362,8 @@ export default function Concept02() {
             </div>
 
             {/* Row 3 — frosted text | wide image */}
-            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-8 backdrop-blur-2xl dark:border-white/[0.08] md:p-10" style={{ background: "linear-gradient(135deg, rgba(170,155,135,0.1), rgba(150,135,115,0.14))" }}>
-              <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
+            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-5 backdrop-blur-2xl dark:border-white/[0.08] md:p-6 lg:p-10" style={{ background: "linear-gradient(135deg, rgba(170,155,135,0.1), rgba(150,135,115,0.14))" }}>
+              <h3 className="font-display text-[clamp(1.3rem,2.5vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
                 {projects[1].tagline}
               </h3>
               <p className="mt-4 font-body text-sm leading-[1.8] opacity-50">
