@@ -291,7 +291,7 @@ export default function Concept02() {
         {/* Blurred heavy grain background */}
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(180,160,130,0.07), transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(160,140,110,0.06), transparent 60%)" }} />
         <div className="pointer-events-none absolute inset-0">
-          <Image src="/images/bg-texture.avif" alt="" fill className="object-cover opacity-40 blur-[1px]" sizes="100vw" />
+          <Image src="/images/bg-texture.avif" alt="" fill className="object-cover" sizes="100vw" />
         </div>
 
         <div className="relative mx-auto max-w-[1440px]">
