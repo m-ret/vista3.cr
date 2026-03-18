@@ -12,7 +12,7 @@ const concepts = [
     subtitle: "Editorial Luxury",
     thesis:
       "Restrained elegance. Large photography, premium monochrome palette, refined typography, and intentional negative space.",
-    image: "/images/golden-view-1.jpg",
+    image: "/images/sketch-house-1.png",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const concepts = [
     subtitle: "Bold / Structural",
     thesis:
       "The brand fills the viewport. Cinzel serif at 18vw, full-bleed slides, clip-path reveals. Architecture as monument.",
-    image: "/images/golden-view-3.jpg",
+    image: "/images/sketch-architect.png",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const concepts = [
     subtitle: "Experimental Premium",
     thesis:
       "Depth, light, and materiality. Organic forms that evoke architecture as spatial experience. The boldest direction.",
-    image: "/images/clifftop-oasis.webp",
+    image: "/images/sketch-table.png",
   },
 ];
 
@@ -147,7 +147,7 @@ export default function HomePage() {
                     src={c.image}
                     alt={c.title}
                     fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="object-cover invert opacity-80 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/20 to-transparent" />
