@@ -288,9 +288,9 @@ export default function Concept02() {
 
       {/* ━━━ PROJECTS — Bento grid with grain background ━━━ */}
       <section id="projects" className="relative overflow-hidden px-6 py-28 md:px-10 md:py-36">
-        {/* Blurred grain background */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/[0.02] via-amber-900/[0.03] to-black/[0.02]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px 128px" }} />
+        {/* Blurred warm grain background */}
+        <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(180,160,130,0.07), transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(160,140,110,0.06), transparent 60%)" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px 128px" }} />
 
         <div className="relative mx-auto max-w-[1440px]">
           <div className="c2-reveal mb-16 md:mb-20">
@@ -300,76 +300,91 @@ export default function Concept02() {
             </h2>
           </div>
 
-          {/* Bento grid */}
-          <div className="grid auto-rows-[280px] gap-4 md:auto-rows-[320px] md:grid-cols-3 lg:auto-rows-[360px]">
-            {projects.map((project, i) => {
-              /* Layout pattern: 0=wide+tall, 1=text, 2=image, 3=image+tall, repeating */
-              const layouts = [
-                "md:col-span-2 md:row-span-2", /* big feature */
-                "md:col-span-1 md:row-span-1", /* text card */
-                "md:col-span-1 md:row-span-1", /* image */
-                "md:col-span-2 md:row-span-1", /* wide */
-              ];
-              const layout = layouts[i % layouts.length];
-              const isTextCard = i % 4 === 1;
+          {/* Bento grid — matches reference: row1=[img, frosted text, img], row2=[wide img, frosted text] */}
+          <div className="grid gap-4 md:grid-cols-3 md:auto-rows-[340px] lg:auto-rows-[380px]">
 
-              return (
-                <div
-                  key={project.id}
-                  className={`c2-reveal group relative overflow-hidden rounded-2xl border border-black/[0.06] dark:border-white/[0.06] ${layout}`}
-                >
-                  {isTextCard ? (
-                    /* Text-only card with frosted glass */
-                    <div className="flex h-full flex-col justify-end p-8 backdrop-blur-xl md:p-10" style={{ background: "linear-gradient(135deg, rgba(180,160,130,0.08), rgba(120,100,80,0.12))" }}>
-                      <p className="font-body text-[10px] tracking-[0.25em] uppercase opacity-40">
-                        {String(i + 1).padStart(2, "0")} — {project.type}
-                      </p>
-                      <h3 className="mt-3 font-display text-[clamp(1.8rem,3.5vw,3rem)] leading-[0.95] tracking-wider uppercase">
-                        {project.name}
-                      </h3>
-                      <p className="mt-4 max-w-md font-body text-sm leading-[1.8] opacity-40">
-                        {project.description}
-                      </p>
-                      <div className="mt-6 flex items-center gap-3">
-                        <span className="font-body text-xs tracking-wider uppercase opacity-30">{project.location}</span>
-                        <span className="opacity-20">&middot;</span>
-                        <span className="font-display text-sm tracking-wider opacity-20">{project.year}</span>
-                      </div>
-                    </div>
-                  ) : (
-                    /* Image card */
-                    <>
-                      <Image
-                        src={project.image}
-                        alt={project.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes={i % 4 === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
-                        quality={85}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                      <div className="absolute inset-0 flex items-end p-6 md:p-8">
-                        <div>
-                          <p className="font-body text-[10px] tracking-[0.25em] uppercase text-white/40">
-                            {String(i + 1).padStart(2, "0")} — {project.type}
-                          </p>
-                          <h3 className="mt-2 font-display text-[clamp(1.5rem,3vw,2.5rem)] leading-[0.95] tracking-wider text-white uppercase">
-                            {project.name}
-                          </h3>
-                          <p className="mt-2 font-body text-sm italic text-white/40">{project.tagline}</p>
-                        </div>
-                      </div>
-                      {/* Faint number */}
-                      <div className="pointer-events-none absolute top-4 right-5">
-                        <span className="font-display text-[clamp(2rem,5vw,4rem)] leading-none tracking-wider text-white/[0.06]">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-                    </>
-                  )}
-                </div>
-              );
-            })}
+            {/* Row 1 — image | frosted text | image */}
+            <div className="c2-reveal group relative overflow-hidden rounded-3xl">
+              <Image src={projects[0].image} alt={projects[0].name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5">
+                <p className="font-body text-[10px] tracking-[0.2em] uppercase text-white/50">{projects[0].type}</p>
+                <h3 className="mt-1 font-display text-xl tracking-wider text-white uppercase">{projects[0].name}</h3>
+              </div>
+            </div>
+
+            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-8 backdrop-blur-2xl dark:border-white/[0.08] md:p-10" style={{ background: "linear-gradient(145deg, rgba(200,185,165,0.1), rgba(160,145,125,0.15))" }}>
+              <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
+                {projects[0].tagline}
+              </h3>
+              <p className="mt-4 font-body text-sm leading-[1.8] opacity-50">
+                {projects[0].description}
+              </p>
+              <div className="mt-5 flex items-center gap-2">
+                <span className="font-body text-xs tracking-wider uppercase opacity-30">{projects[0].location}</span>
+                <span className="opacity-20">&middot;</span>
+                <span className="font-display text-sm tracking-wider opacity-20">{projects[0].year}</span>
+              </div>
+            </div>
+
+            <div className="c2-reveal group relative overflow-hidden rounded-3xl">
+              <Image src={projects[1].image} alt={projects[1].name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-5 left-5 right-5">
+                <p className="font-body text-[10px] tracking-[0.2em] uppercase text-white/50">{projects[1].type}</p>
+                <h3 className="mt-1 font-display text-xl tracking-wider text-white uppercase">{projects[1].name}</h3>
+              </div>
+            </div>
+
+            {/* Row 2 — wide image | frosted text */}
+            <div className="c2-reveal group relative overflow-hidden rounded-3xl md:col-span-2 md:row-span-1">
+              <Image src={projects[2].image} alt={projects[2].name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 66vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8">
+                <p className="font-body text-[10px] tracking-[0.2em] uppercase text-white/50">{projects[2].type}</p>
+                <h3 className="mt-1 font-display text-[clamp(1.5rem,3vw,2.5rem)] tracking-wider text-white uppercase">{projects[2].name}</h3>
+                <p className="mt-2 font-body text-sm italic text-white/40">{projects[2].tagline}</p>
+              </div>
+            </div>
+
+            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-8 backdrop-blur-2xl dark:border-white/[0.08] md:p-10" style={{ background: "linear-gradient(160deg, rgba(180,165,140,0.12), rgba(140,125,105,0.18))" }}>
+              <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
+                {projects[3].name}
+              </h3>
+              <p className="mt-4 font-body text-sm leading-[1.8] opacity-50">
+                {projects[3].description}
+              </p>
+              <div className="mt-5 flex items-center gap-2">
+                <span className="font-body text-xs tracking-wider uppercase opacity-30">{projects[3].location}</span>
+                <span className="opacity-20">&middot;</span>
+                <span className="font-display text-sm tracking-wider opacity-20">{projects[3].year}</span>
+              </div>
+            </div>
+
+            {/* Row 3 — frosted text | wide image */}
+            <div className="c2-reveal flex flex-col justify-end overflow-hidden rounded-3xl border border-black/[0.08] p-8 backdrop-blur-2xl dark:border-white/[0.08] md:p-10" style={{ background: "linear-gradient(135deg, rgba(170,155,135,0.1), rgba(150,135,115,0.14))" }}>
+              <h3 className="font-display text-[clamp(1.6rem,3vw,2.5rem)] leading-[0.95] font-bold tracking-wider uppercase">
+                {projects[1].tagline}
+              </h3>
+              <p className="mt-4 font-body text-sm leading-[1.8] opacity-50">
+                {projects[1].description}
+              </p>
+              <div className="mt-5 flex items-center gap-2">
+                <span className="font-body text-xs tracking-wider uppercase opacity-30">{projects[1].location}</span>
+                <span className="opacity-20">&middot;</span>
+                <span className="font-display text-sm tracking-wider opacity-20">{projects[1].year}</span>
+              </div>
+            </div>
+
+            <div className="c2-reveal group relative overflow-hidden rounded-3xl md:col-span-2 md:row-span-1">
+              <Image src={projects[3].image} alt={projects[3].name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 66vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8">
+                <p className="font-body text-[10px] tracking-[0.2em] uppercase text-white/50">{projects[3].type}</p>
+                <h3 className="mt-1 font-display text-[clamp(1.5rem,3vw,2.5rem)] tracking-wider text-white uppercase">{projects[3].name}</h3>
+                <p className="mt-2 font-body text-sm italic text-white/40">{projects[3].tagline}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
