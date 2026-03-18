@@ -288,9 +288,9 @@ export default function Concept02() {
 
       {/* ━━━ PROJECTS — Bento grid with grain background ━━━ */}
       <section id="projects" className="relative overflow-hidden px-6 py-28 md:px-10 md:py-36">
-        {/* Blurred warm grain background */}
+        {/* Blurred heavy grain background */}
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(180,160,130,0.07), transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(160,140,110,0.06), transparent 60%)" }} />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundRepeat: "repeat", backgroundSize: "128px 128px" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-40 blur-[1px]" style={{ backgroundImage: "url('/images/bg-texture.avif')", backgroundSize: "cover", backgroundPosition: "center" }} />
 
         <div className="relative mx-auto max-w-[1440px]">
           <div className="c2-reveal mb-16 md:mb-20">
