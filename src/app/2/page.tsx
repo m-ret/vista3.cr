@@ -290,9 +290,7 @@ export default function Concept02() {
       <section id="projects" className="relative overflow-hidden px-6 py-28 md:px-10 md:py-36">
         {/* Blurred heavy grain background */}
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 20%, rgba(180,160,130,0.07), transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(160,140,110,0.06), transparent 60%)" }} />
-        <div className="pointer-events-none absolute inset-0">
-          <Image src="/images/bg-texture.avif" alt="" fill className="object-cover" sizes="100vw" />
-        </div>
+        <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "url('/images/bg-light-noise.png')", backgroundRepeat: "repeat", backgroundSize: "300px 300px" }} />
 
         <div className="relative mx-auto max-w-[1440px]">
           <div className="c2-reveal mb-16 md:mb-20">
